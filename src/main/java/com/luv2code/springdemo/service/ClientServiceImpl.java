@@ -25,21 +25,18 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	@Transactional
 	public void saveClient(Client theClient) {
-
 		clientDAO.saveClient(theClient);
 	}
 
 	@Override
 	@Transactional
 	public Client getClient(int theId) {
-		
 		return clientDAO.getClient(theId);
 	}
 
 	@Override
 	@Transactional
 	public void deleteClient(int theId) {
-		
 		clientDAO.deleteClient(theId);
 	}
 }

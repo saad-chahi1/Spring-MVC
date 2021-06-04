@@ -8,63 +8,57 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.luv2code.springdemo.entity.Client;
 import com.luv2code.springdemo.entity.Compte;
+import com.luv2code.springdemo.entity.Transaction;
 
 @Repository
-public class ClientDAOImpl implements ClientDAO{
-	
-	// need to inject the session factory
+public class TransactionDAOImpl implements TransactionDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	
 	@Override
-	public List<?> getClients() {
+	public List<Transaction> getTransactions() {
 		// get the current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 				
 		// create a query  ... sort by last name
-		Query query = 
-				currentSession.createQuery("from Client");
-		List<?> list = query.list();
-		
-				
+		Query query = currentSession.createQuery("from Transaction");
+		List<Transaction> list = query.list();	
 		// return the results		
 		return list;
 	}
 
 	@Override
-	public void saveClient(Client theClient) {
+	public void saveTransaction(Transaction theTransaction) {
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// save/upate the customer ... finally LOL
-		currentSession.saveOrUpdate(theClient);
+		currentSession.saveOrUpdate(theTransaction);
+		
 	}
 
 	@Override
-	public Client getClient(int theId) {
+	public Transaction getTransaction(int theId) {
 		// get the current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// now retrieve/read from database using the primary key
-		Client theClient = currentSession.get(Client.class, theId);
+		Transaction theTransaction = currentSession.get(Transaction.class, theId);
 		
-		return theClient;
+		return theTransaction;
 	}
 
 	@Override
-	public void deleteClient(int theId) {
+	public void deleteTransaction(int theId) {
 		// get the current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// delete object with primary key
-		Query theQuery = 
-				currentSession.createQuery("delete from client where id_client=:id_client");
-		theQuery.setParameter("id_client", theId);
+		Query theQuery = currentSession.createQuery("delete from transaction where id_transaction=:id_transaction");
+		theQuery.setParameter("id_transaction", theId);
 		
 		theQuery.executeUpdate();
-		
 	}
 
 }
