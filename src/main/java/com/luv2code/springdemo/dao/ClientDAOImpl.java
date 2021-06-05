@@ -67,4 +67,18 @@ public class ClientDAOImpl implements ClientDAO{
 		
 	}
 
+	@Override
+	public Client getClient(String email) {
+		// get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// now retrieve/read from database using the primary key
+		Query theQuery = 
+				currentSession.createQuery("from client where email_client=:id_client");
+		theQuery.setParameter("id_client", email);
+		Client theClient = (Client) theQuery;
+		
+		return theClient;
+	}
+
 }

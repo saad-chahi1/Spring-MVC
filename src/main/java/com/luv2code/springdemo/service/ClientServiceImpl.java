@@ -39,6 +39,7 @@ public class ClientServiceImpl implements ClientService {
 	public void deleteClient(int theId) {
 		clientDAO.deleteClient(theId);
 	}
+
 }
 
 

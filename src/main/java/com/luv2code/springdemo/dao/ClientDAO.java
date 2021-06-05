@@ -11,6 +11,8 @@ public interface ClientDAO {
 	public void saveClient(Client theClient);
 
 	public Client getClient(int theId);
+	
+	public Client getClient(String email);
 
 	public void deleteClient(int theId);
 
