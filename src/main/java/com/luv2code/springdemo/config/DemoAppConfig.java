@@ -27,7 +27,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan("com.luv2code.springdemo")
+@ComponentScan(basePackages="com.luv2code.springdemo")
 @PropertySource({ "classpath:persistence-mysql.properties" })
 public class DemoAppConfig implements WebMvcConfigurer {
 
@@ -39,7 +39,7 @@ public class DemoAppConfig implements WebMvcConfigurer {
 	// define a bean for ViewResolver
 
 	@Bean
-	public DataSource myDataSource() {
+	public DataSource securityDataSource() {
 		
 		// create connection pool
 		ComboPooledDataSource myDataSource = new ComboPooledDataSource();
@@ -102,7 +102,7 @@ public class DemoAppConfig implements WebMvcConfigurer {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		
 		// set the properties
-		sessionFactory.setDataSource(myDataSource());
+		sessionFactory.setDataSource(securityDataSource());
 		sessionFactory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
 		sessionFactory.setHibernateProperties(getHibernateProperties());
 		

@@ -16,20 +16,18 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 @EnableWebSecurity
 public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	
 	@Autowired
-	DataSource dataSource;
+	private DataSource securityDataSource;
+	
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		// add our users for in memory authentication
-		
 		UserBuilder users = User.withDefaultPasswordEncoder();
+				
+		auth.jdbcAuthentication().dataSource(securityDataSource);
 		
-		auth.inMemoryAuthentication()
-			.withUser(users.username("john").password("test123").roles("EMPLOYEE"))
-			.withUser(users.username("mary").password("test123").roles("MANAGER"))
-			.withUser(users.username("susan").password("test123").roles("ADMIN"));
 	}
 
 	@Override
