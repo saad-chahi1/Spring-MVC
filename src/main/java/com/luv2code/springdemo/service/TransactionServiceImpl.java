@@ -16,8 +16,8 @@ public class TransactionServiceImpl implements TransactionService{
 	
 	@Override
 	@Transactional
-	public List<Transaction> getTransactions() {
-		return transactionDAO.getTransactions();
+	public List<Transaction> getTransactions(int theId) {
+		return transactionDAO.getTransactions(theId);
 	}
 
 	@Override
@@ -28,8 +28,8 @@ public class TransactionServiceImpl implements TransactionService{
 
 	@Override
 	@Transactional
-	public Transaction getTransaction(int theId) {
-		return transactionDAO.getTransaction(theId);
+	public Transaction getLastTransaction(int id) {
+		return transactionDAO.getLastTransaction(id);
 	}
 
 	@Override

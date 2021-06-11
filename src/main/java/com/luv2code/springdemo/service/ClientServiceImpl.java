@@ -40,6 +40,12 @@ public class ClientServiceImpl implements ClientService {
 		clientDAO.deleteClient(theId);
 	}
 
+	@Override
+	@Transactional
+	public Client getClientEmail(String email) {
+		return clientDAO.getClientEmail(email);
+	}
+
 }
 
 

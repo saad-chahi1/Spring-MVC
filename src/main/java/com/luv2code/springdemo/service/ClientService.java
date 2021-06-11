@@ -11,6 +11,8 @@ public interface ClientService {
 	public void saveClient(Client theClient);
 
 	public Client getClient(int theId);
+	
+	public Client getClientEmail(String email);
 
 	public void deleteClient(int theId);
 	

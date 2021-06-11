@@ -67,7 +67,7 @@ public class Transaction {
 	@Column(name="heure_transaction")
 	private String heure_transaction;
 	
-	@JoinColumn(name="id_client")
+	@Column(name="client_id_client")
 	private int client_id_client;
 	
 	public Transaction() {

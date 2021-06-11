@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.springdemo.entity.Client;
+import com.luv2code.springdemo.entity.User;
 import com.luv2code.springdemo.service.ClientService;
 
 @RestController
@@ -35,6 +37,19 @@ public class ClientRestController {
 		Client cs = clientService.getClient(id);
 		if(cs==null) {
 			throw new ClientNotFoundException("Client id not Found : "+id);
+		}
+		return cs;
+		
+	}
+	
+	// add mapping for GET /customers
+	@GetMapping("/clients/id")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public Client getClient(@RequestParam(value = "_search") String search) {
+		
+		Client cs = clientService.getClientEmail(search);
+		if(cs==null) {
+			throw new ClientNotFoundException("Client id not Found : "+search);
 		}
 		return cs;
 		

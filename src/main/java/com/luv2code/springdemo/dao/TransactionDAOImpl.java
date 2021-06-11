@@ -17,12 +17,15 @@ public class TransactionDAOImpl implements TransactionDAO{
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public List<Transaction> getTransactions() {
+	public List<Transaction> getTransactions(int theId) {
 		// get the current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 				
 		// create a query  ... sort by last name
-		Query query = currentSession.createQuery("from Transaction");
+		Query query = currentSession.createQuery("from Transaction where client_id_client=:client_id_client order by id_transaction desc");
+		query.setParameter("client_id_client", theId);
+		query.setFirstResult(0);
+		query.setMaxResults(5);
 		List<Transaction> list = query.list();	
 		// return the results		
 		return list;
@@ -32,21 +35,29 @@ public class TransactionDAOImpl implements TransactionDAO{
 	public void saveTransaction(Transaction theTransaction) {
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
-		
+		theTransaction.setId_transaction(0);
 		// save/upate the customer ... finally LOL
 		currentSession.saveOrUpdate(theTransaction);
 		
 	}
 
 	@Override
-	public Transaction getTransaction(int theId) {
+	public Transaction getLastTransaction(int id) {
 		// get the current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
-		
-		// now retrieve/read from database using the primary key
-		Transaction theTransaction = currentSession.get(Transaction.class, theId);
-		
-		return theTransaction;
+				
+		// create a query  ... sort by last name
+		Query query = currentSession.createQuery("from Transaction where client_id_client=:client_id_client order by id_transaction desc");
+		query.setParameter("client_id_client", id);
+		query.setFirstResult(0);
+		query.setMaxResults(1);
+		List<Transaction> list = query.list();	
+		Transaction tr = new Transaction();
+		for (Transaction transaction : list) {
+			tr = transaction;
+		}
+		// return the results		
+		return tr;
 	}
 
 	@Override
